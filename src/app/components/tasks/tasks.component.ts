@@ -32,5 +32,10 @@ export class TasksComponent {
     .subscribe();
   }
 
+  addTask(task:Task){
+    this.taskService.addTask(task)
+    .subscribe(() => this.tasks.push(task));
+  }
+
   
 }
