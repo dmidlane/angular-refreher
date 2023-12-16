@@ -6,6 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+This project uses Json Server to supply a test local server
+[json server](https://www.npmjs.com/package/json-server?activeTab=readme#getting-started)
+npm install -g json-server
+there is an npm script added to the project to start the server with 'npm run server'
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
