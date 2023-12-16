@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../Task';
+import { UiService } from '../../services/ui.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
@@ -10,21 +12,31 @@ export class AddTaskComponent implements OnInit {
   
   @Output() onAddTask: EventEmitter<Task> = new EventEmitter()
   
+  validationText: string = '';
+  showValidation: boolean = false;
   text: string = '';
   day: string = '';
   reminder: boolean = false;
+  showAddTask: boolean = false;
+  subscription?: Subscription;
 
-  constructor() {}
+  constructor(private uiService: UiService) {
+    this.uiService.onToggle().subscribe((value) => this.showAddTask = value);
+
+  }
 
   ngOnInit(): void {}
 
   onSubmit() {
+    
+    // validate text
     if (!this.text)
     {
-      alert('please add a task');
+      this.validationText = 'Please add a task name';
       return;
-      // change to validation div
     }
+
+    // emit new task to ui service
     const newTask = {
       text: this.text,
       day: this.day,
@@ -33,8 +45,13 @@ export class AddTaskComponent implements OnInit {
 
     this.onAddTask.emit(newTask);
 
+    // clear the form
     this.text = '';
     this.day = '';
     this.reminder = false;
+    
+    // hide the form and update the button
+    this.uiService.toggleAddTaskButton();
+
   }
 }
